@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#79618f">
+<title>Annu's Lavender World 💜</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{font-family:Georgia,serif;background:#20152c}
+#world{position:relative;width:100%;height:100%;overflow:hidden}
+#scene{position:absolute;inset:-3%;background-size:cover;background-position:center;transition:opacity 2.5s ease,filter 2.5s ease;animation:zoom 35s ease-in-out infinite alternate}
+@keyframes zoom{to{transform:scale(1.12)}}
+#shade{position:absolute;inset:0;background:linear-gradient(90deg,#17102499,transparent 90%),linear-gradient(0deg,#171024aa,transparent 75%);pointer-events:none}
+#moon{position:absolute;right:13%;top:10%;width:34px;height:34px;border-radius:50%;background:#fff4d8;box-shadow:0 0 24px 8px #fff4d866;opacity:0;transition:opacity 3s}
+#stars{position:absolute;inset:0;opacity:0;transition:opacity 3s;pointer-events:none}
+.star{position:absolute;color:#fff;text-shadow:0 0 8px white;animation:twinkle 2s infinite alternate}
+@keyframes twinkle{to{opacity:.2;transform:scale(.7)}}
+.butterfly{position:absolute;left:-10%;top:30%;font-size:23px;animation:fly 22s linear infinite;z-index:3}
+.b2{top:45%;animation-delay:6s;animation-duration:26s}
+.b3{top:20%;animation-delay:12s;animation-duration:24s}
+@keyframes fly{0%{transform:translateX(0) translateY(0)}50%{transform:translateX(65vw) translateY(-35px)}100%{transform:translateX(120vw) translateY(20px)}}
+#flowers{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.flower{position:absolute;bottom:-8px;width:3px;height:var(--h);transform-origin:bottom;animation:sway var(--speed) ease-in-out infinite alternate}
+.flower .stem{height:100%;width:3px;background:linear-gradient(#9eae72,#38583b)}
+.flower .head{position:absolute;top:0;left:-8px;width:20px;height:65px;transform:scaleY(0);transform-origin:bottom;animation:blossom 2.8s ease-out forwards;animation-delay:var(--delay)}
+.flower .head i{position:absolute;width:9px;height:15px;border-radius:70% 70% 45% 45%;background:linear-gradient(90deg,#68418e,#d9b8ed);box-shadow:0 0 5px #d8b5ec}
+.flower .head i:nth-child(1){left:6px;top:0}
+.flower .head i:nth-child(2){left:0;top:10px}
+.flower .head i:nth-child(3){left:12px;top:12px}
+.flower .head i:nth-child(4){left:3px;top:24px}
+.flower .head i:nth-child(5){left:11px;top:28px}
+.flower .head i:nth-child(6){left:2px;top:40px}
+.flower .head i:nth-child(7){left:10px;top:44px}
+@keyframes blossom{0%{transform:scaleY(0)}75%{transform:scaleY(1.12)}100%{transform:scaleY(1)}}
+@keyframes sway{from{transform:rotate(-11deg)}to{transform:rotate(11deg)}}
+#message{position:absolute;left:4%;bottom:12%;z-index:5;width:min(390px,68%);padding:18px;color:white;background:#21152bd9;border-left:2px solid #e7c9ff;border-radius:5px;backdrop-filter:blur(5px)}
+.tag{font:11px Arial;letter-spacing:3px;color:#e9d3fa;margin-bottom:12px}
+h1{font-weight:normal;font-size:clamp(24px,5vw,38px);margin:0 0 12px;color:#f5e6ff}
+p{font-size:clamp(14px,2.8vw,18px);line-height:1.6;margin:0}
+.signature{margin-top:13px;color:#e9caff;font-style:italic}
+#next{position:absolute;right:5%;bottom:8%;z-index:10;padding:14px 21px;border:1px solid white;border-radius:30px;background:#765194;color:white;font-size:14px}
+.fade{animation:rise 2s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){#message{bottom:14%;padding:13px;width:68%}#next{bottom:4%;right:4%;padding:12px 15px}}
+</style>
+</head>
+<body>
+<div id="world">
+<div id="scene"></div>
+<div id="shade"></div><div id="flowers"></div>
+<div id="stars"></div>
+<div id="moon"></div>
+<div class="butterfly">🦋</div>
+<div class="butterfly b2">🦋</div>
+<div class="butterfly b3">🦋</div>
+<div id="message" class="fade">
+<div class="tag">A LITTLE WORLD MADE FOR YOU</div>
+<h1>Dear Annu 💜</h1>
+<p>Welcome to my little lavender world. Every flower here carries a beautiful feeling for you.</p>
+</div>
+<button id="next">NEXT ♡</button>
+</div>
+<script>
+const scenes=[
+{
+url:"https://images.unsplash.com/photo-1735653279088-c906bb6dc362?auto=format&fit=crop&w=2400&q=90&v=2",
+tag:"A BEAUTIFUL FEELING",title:"You Are Special 💜",
+text:"Some people make the world softer, brighter, and more beautiful just by being in it.",
+filter:"brightness(1.05) saturate(1.15)",night:false
+},
+{
+url:"https://images.unsplash.com/photo-1499002238440-d264edd596ec?auto=format&fit=crop&w=2400&q=90&v=2",
+tag:"A GARDEN OF DREAMS",title:"Keep Blooming 🪻",
+text:"May your days bloom with peace, warmth, and happiness.",
+filter:"brightness(1.05) saturate(1.2)",night:false
+},
+{
+url:"https://images.unsplash.com/photo-1757025283569-221118db1b44?auto=format&fit=crop&w=2400&q=90",
+tag:"A LITTLE WISH",title:"For Your Smile ✨",
+text:"May every sunrise bring you hope and every sunset bring you peace.",
+filter:"brightness(1.05) saturate(1.15)",night:false
+},
+{
+url:"https://images.unsplash.com/photo-1673511395117-104ed47789b5?auto=format&fit=crop&w=2400&q=90",
+tag:"FROM MY HEART",title:"A Message For You",
+text:"Even across the distance, you have a special place in my heart.",
+filter:"brightness(.85) saturate(1.2)",night:false
+},
+{
+url:"https://images.unsplash.com/photo-1719765863866-f8a5b078933e?auto=format&fit=crop&w=2400&q=90",
+tag:"TWO HEARTS, ONE STORY",title:"Sahil & Annu 💜",
+text:"Two hearts, one beautiful story. May our journey always be filled with love, trust, and happiness.",
+sign:"Forever Together ♡",filter:"brightness(.42) saturate(1.2)",night:true
+}
+];
+let index=0;
+const scene=document.getElementById("scene");
+const box=document.getElementById("message");
+const stars=document.getElementById("stars");
+const moon=document.getElementById("moon");
+for(let i=0;i<110;i++){
+let s=document.createElement("span");
+s.className="star";s.textContent="✦";
+s.style.left=Math.random()*100+"%";
+s.style.top=Math.random()*70+"%";
+s.style.fontSize=(7+Math.random()*12)+"px";
+s.style.animationDelay=Math.random()*3+"s";
+stars.appendChild(s);
+}
+for(let i=0;i<75;i++){
+let f=document.createElement("div");
+f.className="flower";
+f.style.left=(Math.random()*103)+"%";
+f.style.setProperty("--h",(65+Math.random()*145)+"px");
+f.style.setProperty("--speed",(1.5+Math.random()*1.5)+"s");
+f.style.setProperty("--delay",(Math.random()*2)+"s");
+f.style.opacity=.35+Math.random()*.6;
+f.innerHTML='<div class="stem"></div><div class="head">'+ '<i></i>'.repeat(7) +'</div>';
+document.getElementById("flowers").appendChild(f);
+}
+scene.style.backgroundImage=`url("${scenes[0].url}")`;
+function showScene(i){
+let s=scenes[i];
+scene.style.opacity=0;
+setTimeout(()=>{
+scene.style.backgroundImage=`url("${s.url}")`;
+scene.style.filter=s.filter;
+scene.style.opacity=1;
+box.classList.remove("fade");
+box.innerHTML='<div class="tag">'+s.tag+'</div><h1>'+s.title+'</h1><p>'+s.text+'</p>'+(s.sign?'<div class="signature">'+s.sign+'</div>':'');
+void box.offsetWidth;
+box.classList.add("fade");
+stars.style.opacity=s.night?1:0;
+moon.style.opacity=s.night?1:0;
+},900);
+}
+document.getElementById("next").onclick=()=>{
+if(index<scenes.length){
+showScene(index);
+index++;
+if(index===scenes.length)document.getElementById("next").textContent="♡ THE END ♡";
+}else{
+document.getElementById("next").disabled=true;
+}
+};
+</script>
+</body>
+</html>

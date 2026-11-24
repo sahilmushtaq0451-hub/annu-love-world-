@@ -1,0 +1,333 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: Georgia, serif;
+    background: #cbb8e8;
+}
+
+/* MAGICAL LAVENDER SKY */
+
+#sky {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    background: linear-gradient(
+        180deg,
+        #a58bd1 0%,
+        #c8b5e5 45%,
+        #eee7f6 100%
+    );
+    animation: dayToNight 45s ease-in-out infinite alternate;
+}
+
+@keyframes dayToNight {
+    0% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(.85) hue-rotate(8deg);
+    }
+    100% {
+        filter: brightness(.62) hue-rotate(18deg);
+    }
+}
+
+/* LAVENDER HILLS */
+
+#sky::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 38%;
+    background:
+        radial-gradient(ellipse at 20% 100%, #b5a0d0 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 100%, #a58cbd 0%, transparent 60%),
+        linear-gradient(0deg, #79618f, #bca9d1 75%, transparent);
+    z-index: 0;
+}
+
+/* MOVING CLOUDS */
+
+.cloud {
+    position: absolute;
+    width: 180px;
+    height: 55px;
+    background: rgba(255,255,255,.72);
+    border-radius: 50px;
+    filter: blur(5px);
+    animation: cloudMove 38s linear infinite;
+}
+
+.cloud-one {
+    top: 15%;
+    left: -200px;
+}
+
+.cloud-two {
+    top: 32%;
+    left: -300px;
+    animation-delay: -18s;
+    transform: scale(.75);
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+    position: absolute;
+    background: inherit;
+    border-radius: 50%;
+}
+
+.cloud::before {
+    width: 90px;
+    height: 75px;
+    top: -35px;
+    left: 25px;
+}
+
+.cloud::after {
+    width: 100px;
+    height: 80px;
+    top: -40px;
+    right: 20px;
+}
+
+@keyframes cloudMove {
+    from { transform: translateX(0); }
+    to { transform: translateX(120vw); }
+}
+
+/* BUTTERFLIES */
+
+.butterfly {
+    position: absolute;
+    top: 40%;
+    left: 15%;
+    font-size: 30px;
+    z-index: 3;
+    animation: butterflyFly 12s ease-in-out infinite alternate;
+}
+
+.butterfly-two {
+    top: 25%;
+    left: 65%;
+    font-size: 25px;
+    animation-delay: -5s;
+}
+
+@keyframes butterflyFly {
+    0% {
+        transform: translate(0, 0) rotate(-15deg);
+    }
+    50% {
+        transform: translate(100px, -90px) rotate(15deg);
+    }
+    100% {
+        transform: translate(180px, 30px) rotate(-10deg);
+    }
+}
+
+/* FLOATING PETALS */
+
+.petals::before,
+.petals::after {
+    content: "✿   ❀   ✿   ❀";
+    position: absolute;
+    top: -30px;
+    left: 10%;
+    color: #f7eaf7;
+    font-size: 22px;
+    letter-spacing: 35px;
+    opacity: .8;
+    animation: petalsFall 18s linear infinite;
+}
+
+.petals::after {
+    left: 55%;
+    animation-delay: -9s;
+}
+
+@keyframes petalsFall {
+    from {
+        transform: translateY(-30px) rotate(0deg);
+    }
+    to {
+        transform: translateY(110vh) rotate(300deg);
+    }
+}
+
+/* LAVENDER FLOWER GARDEN */
+
+.garden {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 38%;
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    pointer-events: none;
+}
+
+.flower {
+    display: inline-block;
+    font-size: clamp(30px, 7vw, 65px);
+    transform-origin: bottom center;
+    animation: flowerSway 3.5s ease-in-out infinite alternate;
+}
+
+.flower:nth-child(even) {
+    animation-delay: -1.5s;
+}
+
+@keyframes flowerSway {
+    from { transform: rotate(-9deg); }
+    to { transform: rotate(9deg); }
+}
+
+/* ROMANTIC PAGES */
+
+#app {
+    position: relative;
+    z-index: 5;
+    min-height: 100vh;
+}
+
+.page {
+    display: none;
+    min-height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+}
+
+.page.active {
+    display: flex;
+    animation: pageAppear 1.5s ease both;
+}
+
+@keyframes pageAppear {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* WHITE GLASS CARD */
+
+.content {
+    width: min(92%, 520px);
+    padding: 38px 24px;
+    text-align: center;
+    color: #59416f;
+    background: rgba(255,255,255,.76);
+    border: 1px solid rgba(255,255,255,.9);
+    border-radius: 28px;
+    box-shadow: 0 15px 45px rgba(75,48,105,.2);
+    backdrop-filter: blur(12px);
+}
+
+.content h1 {
+    font-size: clamp(35px, 8vw, 52px);
+    color: #8060a8;
+    margin-bottom: 18px;
+}
+
+.content h2 {
+    font-size: clamp(23px, 5vw, 32px);
+    color: #755594;
+    margin-bottom: 18px;
+}
+
+.content p {
+    font-size: clamp(16px, 4vw, 19px);
+    line-height: 1.8;
+    color: #665574;
+    margin: 12px 0;
+}
+
+.content h3 {
+    margin-top: 25px;
+    color: #8767ac;
+    font-size: 23px;
+}
+
+/* SLOW RISING ENGLISH WORDS */
+
+.content > * {
+    opacity: 0;
+    animation: softRise 2.4s ease-out forwards;
+}
+
+.content > *:nth-child(1) {
+    animation-delay: .5s;
+}
+
+.content > *:nth-child(2) {
+    animation-delay: 1.5s;
+}
+
+.content > *:nth-child(3) {
+    animation-delay: 2.5s;
+}
+
+.content > *:nth-child(4) {
+    animation-delay: 3.5s;
+}
+
+@keyframes softRise {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+        filter: blur(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* LAVENDER BUTTONS */
+
+button {
+    margin-top: 24px;
+    padding: 14px 27px;
+    border: 1px solid rgba(255,255,255,.8);
+    border-radius: 35px;
+    background: linear-gradient(135deg, #a58acb, #8061a7);
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(100,70,135,.25);
+    transition: transform .3s, box-shadow .3s;
+}
+
+button:active {
+    transform: scale(.95);
+}
+
+/* MOBILE SCREEN */
+
+@media (max-width: 600px) {
+    .content {
+        padding: 30px 19px;
+    }
+
+    .page {
+        padding: 15px;
+    }
+}
+
